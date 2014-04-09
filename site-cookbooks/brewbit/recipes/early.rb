@@ -11,12 +11,22 @@ users_manage "rvm" do
   action :create
 end
 
+sudo 'deploy' do
+  user      'deploy'
+  commands  ['ls']
+  nopasswd  true
+end
+
 # Create the application deployment directory
-directory "/var/www/#{ node[:brewbit][:hostname] }" do
-  owner "deploy"
-  group "deploy"
-  mode 02700
-  recursive true
+[ "/var/www/#{ node[:brewbit][:hostname] }",
+  "/var/www/dg.#{ node[:brewbit][:hostname] }"
+].each do |path|
+  directory path do
+    owner "deploy"
+    group "deploy"
+    mode 02700
+    recursive true
+  end
 end
 
 [ "/var/www/#{ node[:brewbit][:hostname] }/releases",
@@ -24,7 +34,13 @@ end
   "/var/www/#{ node[:brewbit][:hostname] }/shared/tmp",
   "/var/www/#{ node[:brewbit][:hostname] }/shared/tmp/pids",
   "/var/www/#{ node[:brewbit][:hostname] }/shared/tmp/sockets",
-  "/var/www/#{ node[:brewbit][:hostname] }/shared/log"
+  "/var/www/#{ node[:brewbit][:hostname] }/shared/log",
+  "/var/www/dg.#{ node[:brewbit][:hostname] }/releases",
+  "/var/www/dg.#{ node[:brewbit][:hostname] }/shared",
+  "/var/www/dg.#{ node[:brewbit][:hostname] }/shared/tmp",
+  "/var/www/dg.#{ node[:brewbit][:hostname] }/shared/tmp/pids",
+  "/var/www/dg.#{ node[:brewbit][:hostname] }/shared/tmp/sockets",
+  "/var/www/dg.#{ node[:brewbit][:hostname] }/shared/log"
 ].each do |path|
   directory path do
     owner "deploy"
@@ -33,11 +49,15 @@ end
   end
 end
 
-directory "/var/log/#{ node[:brewbit][:hostname] }" do
-  owner "deploy"
-  group "deploy"
-  mode 02775
-  recursive true
+[ "/var/log/#{ node[:brewbit][:hostname] }",
+  "/var/log/dg.#{ node[:brewbit][:hostname] }"
+].each do |path|
+  directory path do
+    owner "deploy"
+    group "deploy"
+    mode 02775
+    recursive true
+  end
 end
 
 # Create the dotenv file containing secrets

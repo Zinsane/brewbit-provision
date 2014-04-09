@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 #ruby-gemset=brewbit-spree
 
 # A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure. http://www.getchef.com/chef/
-gem 'chef', '~> 11.12.0', group: :development
+gem 'chef', '~> 11.10.0', group: :development
 
 # knife-solo adds a handful of Knife commands that aim to make working with chef-solo as powerful as chef-server.
 gem 'knife-solo', group: :development

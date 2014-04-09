@@ -3,6 +3,7 @@ description "Web server for brewbit.com"
 
 run_list 'recipe[chef-solo-search]',
          'recipe[users]',
+         'recipe[sudo]',
          'recipe[locale]',
          'recipe[apt]',
          'recipe[brewbit::early]',
@@ -30,12 +31,20 @@ default_attributes(
       {'name'    => 'bundler', 'version' => '1.5.3'},
       {'name'    => 'rake', 'version' => '10.1.0'},
       {'name'    => 'backup', 'version' => '4.0.1' },
+      {'name'    => 'foreman', 'version' => '0.63.0' },
       {'name'    => 'pry' }
     ],
     'vagrant' => {
       'system_chef_solo' => '/opt/chef/bin/chef-solo'
     },
     'group_users' => ['vagrant'],
+  },
+  'authorization' => {
+    'sudo' => {
+      'users' => ['vagrant'],
+      'passwordless' => true,
+      'include_sudoers_d' => true
+    }
   },
   'postgresql' => {
     'version' => '9.3',
