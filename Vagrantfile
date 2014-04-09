@@ -2,11 +2,11 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  config.omnibus.chef_version = :latest
+  config.omnibus.chef_version = '11.10.0'
   
   env = nil
 
-  config.vm.define :staging do |staging|
+  config.vm.define :staging, primary: true do |staging|
     staging.vm.hostname = 'staging.brewbit.com'
     env = 'staging'
   end
