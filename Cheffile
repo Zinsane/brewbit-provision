@@ -5,6 +5,7 @@ site 'http://community.opscode.com/api/v1'
 
 cookbook 'locale', git: 'https://github.com/deepak/chef-locale', ref: '2669bd937f589b6ad542da4eb1baa42cfe251030'
 cookbook 'apt'
+cookbook 'git'
 cookbook 'build-essential'
 cookbook 'cmake', git: 'https://github.com/phlipper/chef-cmake'
 cookbook 'libqt4', git: 'https://github.com/phlipper/chef-libqt4'
