@@ -13,7 +13,7 @@ sudo 'deploy' do
     "/sbin/stop *brewbit.com",
     "/sbin/restart *brewbit.com",
     "/bin/rm -f /etc/init/*brewbit.com*",
-    "/usr/bin/env",
+    "/usr/local/bin/bundle",
     "/bin/sed"
   ]
   nopasswd  true
