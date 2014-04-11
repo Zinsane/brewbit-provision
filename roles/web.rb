@@ -1,11 +1,12 @@
 name "web"
 description "Web server for brewbit.com"
 
-run_list 'recipe[brewbit::users]',
+run_list 'recipe[apt]',
+         'recipe[brewbit::ruby]',
+         'recipe[brewbit::users]',
          'recipe[ssh-keys]',
          'recipe[sudo]',
          'recipe[locale]',
-         'recipe[apt]',
          'recipe[brewbit::early]',
          'recipe[build-essential]',
          'recipe[postgresql::server]',
