@@ -4,18 +4,6 @@ mailchimp = Chef::EncryptedDataBagItem.load("secrets", "mailchimp")
 aws       = Chef::EncryptedDataBagItem.load("secrets", "aws")
 hipchat   = Chef::EncryptedDataBagItem.load("secrets", "hipchat")
 email     = Chef::EncryptedDataBagItem.load("secrets", "email")
-ssl       = Chef::EncryptedDataBagItem.load("secrets", "ssl")
-
-# Create the deploy user/group
-users_manage "rvm" do
-  action :create
-end
-
-sudo 'deploy' do
-  user      'deploy'
-  commands  ['ls']
-  nopasswd  true
-end
 
 # Create the application deployment directory
 [ "/var/www/#{ node[:brewbit][:hostname] }",
@@ -73,19 +61,4 @@ template "/var/www/#{ node[:brewbit][:hostname] }/shared/.env" do
      :email     => email,
      :aws       => aws
   })
-end
-
-# Install SSL certificate and private key
-file "/etc/ssl/certs/#{ node[:brewbit][:hostname] }.crt" do
-  owner "root"
-  group "root"
-  mode 0644
-  content ssl['cert']
-end
-
-file "/etc/ssl/private/#{ node[:brewbit][:hostname] }.key" do
-  owner "root"
-  group "ssl-cert"
-  mode 0640
-  content ssl['key']
 end

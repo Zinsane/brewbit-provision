@@ -1,8 +1,8 @@
 name "web"
 description "Web server for brewbit.com"
 
-run_list 'recipe[chef-solo-search]',
-         'recipe[users]',
+run_list 'recipe[brewbit::users]',
+         'recipe[ssh-keys]',
          'recipe[sudo]',
          'recipe[locale]',
          'recipe[apt]',
@@ -14,9 +14,8 @@ run_list 'recipe[chef-solo-search]',
          'recipe[cmake]',
          'recipe[libqt4]',
          'recipe[imagemagick]',
+         'recipe[brewbit::ssl]',
          'recipe[nginx::source]',
-         'recipe[rvm::vagrant]',
-         'recipe[rvm::system]',
          'recipe[brewbit::late]'
          
 default_attributes(
@@ -24,20 +23,9 @@ default_attributes(
     'lang' => 'en_US.utf8',
     'lc_all' => 'en_US.utf8'
   },
-  'rvm' => {
-    'rubies'       => ['2.1.0'],
-    'default_ruby' => '2.1.0',
-    'global_gems'  => [
-      {'name'    => 'bundler', 'version' => '1.5.3'},
-      {'name'    => 'rake', 'version' => '10.1.0'},
-      {'name'    => 'backup', 'version' => '4.0.1' },
-      {'name'    => 'foreman', 'version' => '0.63.0' },
-      {'name'    => 'pry' }
-    ],
-    'vagrant' => {
-      'system_chef_solo' => '/opt/chef/bin/chef-solo'
-    },
-    'group_users' => ['vagrant'],
+  'ssh_keys' => {
+    'deploy'  => ['nick', 'misha'],
+    'vagrant' => ['nick', 'misha']
   },
   'authorization' => {
     'sudo' => {

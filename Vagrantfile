@@ -4,16 +4,12 @@
 Vagrant.configure('2') do |config|
   config.omnibus.chef_version = '11.10.0'
   
-  env = nil
-
   config.vm.define :staging, primary: true do |staging|
     staging.vm.hostname = 'staging.brewbit.com'
-    env = 'staging'
   end
 
   config.vm.define :production do |production|
     production.vm.hostname = 'brewbit.com'
-    env = 'production'
   end
 
   config.vm.provider :digital_ocean do |provider, override|
@@ -24,7 +20,7 @@ Vagrant.configure('2') do |config|
     
     provider.client_id = ENV['DIGITAL_OCEAN_CLIENT_ID']
     provider.api_key = ENV['DIGITAL_OCEAN_API_KEY']
-    provider.image = 'Ubuntu 13.04 x64'
+    provider.image = 'Ubuntu 13.10 x64'
     provider.region = 'San Francisco 1'
     provider.size = '2GB'
     provider.private_networking = false
@@ -40,7 +36,7 @@ Vagrant.configure('2') do |config|
     chef.data_bags_path = 'data_bags'
     chef.encrypted_data_bag_secret_key_path = "#{ENV['HOME']}/.chef/encrypted_data_bag_secret"
 
-    chef.environment = 'staging'
+    chef.environment = 'staging' # TODO make this dynamic!
     chef.add_role 'web'
   end
 end
