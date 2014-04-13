@@ -16,7 +16,7 @@ Vagrant.configure('2') do |config|
     override.ssh.username = 'vagrant'
     override.vm.box = 'digital_ocean'
     override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
-    override.ssh.private_key_path = '~/.ssh/brewbit'
+    override.ssh.private_key_path = '~/.ssh/id_rsa'
     
     provider.client_id = ENV['DIGITAL_OCEAN_CLIENT_ID']
     provider.api_key = ENV['DIGITAL_OCEAN_API_KEY']
@@ -25,7 +25,6 @@ Vagrant.configure('2') do |config|
     provider.size = '2GB'
     provider.private_networking = false
     provider.backups_enabled = false
-    provider.ssh_key_name = 'Vagrant'
     provider.setup = true
   end
 
