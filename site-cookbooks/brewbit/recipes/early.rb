@@ -4,6 +4,7 @@ mailchimp = Chef::EncryptedDataBagItem.load("secrets", "mailchimp")
 aws       = Chef::EncryptedDataBagItem.load("secrets", "aws")
 hipchat   = Chef::EncryptedDataBagItem.load("secrets", "hipchat")
 email     = Chef::EncryptedDataBagItem.load("secrets", "email")
+discourse = Chef::EncryptedDataBagItem.load("secrets", "discourse")
 
 # Create the application deployment directory
 [ "/var/www/#{ node[:brewbit][:hostname] }",
@@ -59,6 +60,7 @@ template "/var/www/#{ node[:brewbit][:hostname] }/shared/.env" do
      :mailchimp => mailchimp,
      :hipchat   => hipchat,
      :email     => email,
-     :aws       => aws
+     :aws       => aws,
+     :discourse => discourse
   })
 end

@@ -12,6 +12,10 @@ Vagrant.configure('2') do |config|
     production.vm.hostname = 'brewbit.com'
   end
 
+  config.vm.define :discourse do |production|
+    production.vm.hostname = 'brewbit.com'
+  end
+
   config.vm.provider :digital_ocean do |provider, override|
     override.ssh.username = 'vagrant'
     override.vm.box = 'digital_ocean'
