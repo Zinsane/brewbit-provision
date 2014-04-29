@@ -12,15 +12,17 @@ Vagrant.configure('2') do |config|
     production.vm.hostname = 'brewbit.com'
   end
 
-  config.vm.define :discourse do |production|
-    production.vm.hostname = 'brewbit.com'
+  config.vm.define :prod do |prod|
+    prod.vm.hostname = 'brewbit.com'
   end
 
   config.vm.provider :digital_ocean do |provider, override|
     override.ssh.username = 'vagrant'
+    override.ssh.private_key_path = '~/.ssh/id_rsa'
+    provider.ssh_key_name = 'nick'
+    
     override.vm.box = 'digital_ocean'
     override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
-    override.ssh.private_key_path = '~/.ssh/id_rsa'
     
     provider.client_id = ENV['DIGITAL_OCEAN_CLIENT_ID']
     provider.api_key = ENV['DIGITAL_OCEAN_API_KEY']
@@ -39,7 +41,7 @@ Vagrant.configure('2') do |config|
     chef.data_bags_path = 'data_bags'
     chef.encrypted_data_bag_secret_key_path = "#{ENV['HOME']}/.chef/encrypted_data_bag_secret"
 
-    chef.environment = 'staging' # TODO make this dynamic!
+    chef.environment = 'production' # TODO make this dynamic!
     chef.add_role 'web'
   end
 end
