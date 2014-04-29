@@ -1,2 +1,2 @@
 #!/bin/sh
-su - deploy -c "cd /var/www/<%= node[:brewbit][:hostname] %>/current/backup/ && bundle install --path vendor/bundle && RAILS_ENV=<%= node[:chef_environment] %> bundle exec backup perform --root-path . --trigger db"
+su - deploy -c "cd /var/www/<%= node[:brewbit][:hostname] %>/current/backup/ && bundle install --path vendor/bundle && RAILS_ENV=<%= node.chef_environment %> bundle exec backup perform --root-path . --trigger db"
