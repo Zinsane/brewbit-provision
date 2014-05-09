@@ -65,9 +65,15 @@ server {
   # if the request is for a static resource, nginx should serve it directly
   # and add a far future expires header to it, making the browser
   # cache the resource and navigate faster over the website
-  location ~ ^/(system|assets|spree|readings)/  {
+  location ~ ^/(system|assets|spree)/  {
     root /var/www/<%= node[:brewbit][:hostname] %>/current/public;
     expires max;
+    break;
+  }
+  
+  # serve readings files without caching
+  location ~ ^/(readings)/  {
+    root /var/www/<%= node[:brewbit][:hostname] %>/current/public;
     break;
   }
 }
