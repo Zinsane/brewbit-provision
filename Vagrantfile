@@ -24,11 +24,10 @@ Vagrant.configure('2') do |config|
     override.vm.box = 'digital_ocean'
     override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
     
-    provider.client_id = ENV['DIGITAL_OCEAN_CLIENT_ID']
-    provider.api_key = ENV['DIGITAL_OCEAN_API_KEY']
-    provider.image = 'Ubuntu 13.10 x64'
-    provider.region = 'San Francisco 1'
-    provider.size = '2GB'
+    provider.token = ENV['DIGITAL_OCEAN_ACCESS_TOKEN']
+    provider.image = 'ubuntu-14-04-x64'
+    provider.region = 'sfo1'
+    provider.size = '2gb'
     provider.private_networking = false
     provider.backups_enabled = false
     provider.setup = true
@@ -41,7 +40,7 @@ Vagrant.configure('2') do |config|
     chef.data_bags_path = 'data_bags'
     chef.encrypted_data_bag_secret_key_path = "#{ENV['HOME']}/.chef/encrypted_data_bag_secret"
 
-    chef.environment = 'production' # TODO make this dynamic!
+    chef.environment = 'staging' # TODO make this dynamic!
     chef.add_role 'web'
   end
 end
