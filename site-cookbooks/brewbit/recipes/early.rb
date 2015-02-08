@@ -1,6 +1,7 @@
 # Decrypt databags
 tumblr    = Chef::EncryptedDataBagItem.load("secrets", "tumblr")
 mailchimp = Chef::EncryptedDataBagItem.load("secrets", "mailchimp")
+mandrill  = Chef::EncryptedDataBagItem.load("secrets", "mandrill")
 aws       = Chef::EncryptedDataBagItem.load("secrets", "aws")
 hipchat   = Chef::EncryptedDataBagItem.load("secrets", "hipchat")
 email     = Chef::EncryptedDataBagItem.load("secrets", "email")
@@ -58,6 +59,7 @@ template "/var/www/#{ node[:brewbit][:hostname] }/shared/.env" do
   variables({
      :tumblr    => tumblr,
      :mailchimp => mailchimp,
+     :mandrill  => mandrill,
      :hipchat   => hipchat,
      :email     => email,
      :aws       => aws,
