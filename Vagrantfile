@@ -9,11 +9,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.define :production do |production|
-    production.vm.hostname = 'brewbit.com'
-  end
-
-  config.vm.define :prod do |prod|
-    prod.vm.hostname = 'brewbit.com'
+    production.vm.hostname = 'production.brewbit.com'
   end
 
   config.vm.provider :digital_ocean do |provider, override|
@@ -40,7 +36,7 @@ Vagrant.configure('2') do |config|
     chef.data_bags_path = 'data_bags'
     chef.encrypted_data_bag_secret_key_path = "#{ENV['HOME']}/.chef/encrypted_data_bag_secret"
 
-    chef.environment = 'staging' # TODO make this dynamic!
+    chef.environment = 'production' # TODO make this dynamic!
     chef.add_role 'web'
   end
 end
